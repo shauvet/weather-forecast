@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
+import React, { useEffect, useState } from 'react';
+import { fetchWeather } from './api';
+import { WeatherData } from './types';
+import './index.css';  
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+    const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    useEffect(() => {
+        const loadData = async () => {
+            const data = await fetchWeather();
+            if (data) setWeatherData(data);
+        };
+
+        loadData();
+    }, []);
+
+    if (!weatherData) return <p className="text-center mt-4">Loading...</p>;
+
+    return (
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4 sm:p-8">
+            <div className="bg-white p-4 sm:p-8 rounded-xl shadow-md w-full sm:w-96">
+                <h2 className="text-xl font-semibold mb-4 flex items-center justify-center sm:justify-start">
+                    <svg className="h-6 w-6 mr-2 text-gray-500" /* Add your Cloud icon SVG path here */></svg>
+                    Weather
+                </h2>
+                <p className="text-center sm:text-left"><strong>Temperature:</strong> {weatherData.hourly.temperature_2m[0]}°C</p>
+            </div>
+        </div>
+    );
 }
 
-export default App
+export default App;
