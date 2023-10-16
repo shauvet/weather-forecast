@@ -6,16 +6,22 @@ import './index.css';
 
 const App: React.FC = () => {
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const loadData = async () => {
-            const data = await fetchWeather();
-            if (data) setWeatherData(data);
+            try {
+                const data = await fetchWeather();
+                if (data) setWeatherData(data);
+            } catch (error) {
+                setError("Failed to fetch weather data. Please try again later.");
+            }
         };
 
         loadData();
     }, []);
 
+    if (error) return <p className="text-center mt-4 text-red-500">{error}</p>;
     if (!weatherData) return <p className="text-center mt-4 text-white">Loading...</p>;
 
     return (

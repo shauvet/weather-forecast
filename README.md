@@ -19,4 +19,3 @@ A simple weather app built using Vite, React, TypeScript, and the Open-Meteo API
 
 - Fetch weather based on user's current location.
 - Display more weather details and add icons for each weather condition.
-- Add error handling for failed API requests.
