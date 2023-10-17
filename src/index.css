@@ -5,3 +5,25 @@
 body {
   background: linear-gradient(to bottom, #83a4d4, #b6fbff);
 }
+
+/* Mobile-first styles */
+.weather-widget {
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .weather-widget {
+      padding: 20px;
+      font-size: 18px;
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  .weather-widget {
+      padding: 30px;
+      font-size: 20px;
+  }
+}
