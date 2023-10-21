@@ -10,23 +10,27 @@ export interface IWeatherData {
     weathercode: number;
     is_day: string;
     temperature: number;
-    temperature_2m_max: number;
-    temperature_2m_min: number;
-    relativehumidity_2m: number;
+    temperature_max: number;
+    temperature_min: number;
+    relativehumidity: number;
     precipitation_probability: number;
-    windspeed_10m: number;
-    winddirection_10m: number;
+    windspeed: number;
+    apparent_temperature: number;
   };
   daily: {
     weathercode: number[];
     temperature_2m_max: number[];
     temperature_2m_min: number[];
     precipitation_probability_max: number[];
+    uv_index_max: number[];
     time: string[];
   };
   hourly: {
     weathercode: number[];
     temperature_2m: number[];
+    apparent_temperature: number[];
+    relativehumidity_2m: number[];
+    visibility: number[];
     time: string[];
   };
 }

@@ -9,7 +9,7 @@ const currenTypes = [
   'relativehumidity_2m',
   'precipitation_probability',
   'windspeed_10m',
-  'winddirection_10m',
+  'apparent_temperature',
 ];
 
 const dailyTypes = [
@@ -17,9 +17,16 @@ const dailyTypes = [
   'temperature_2m_max',
   'temperature_2m_min',
   'precipitation_probability_max',
+  'uv_index_max',
 ];
 
-const hourlyTypes = ['weathercode', 'temperature_2m'];
+const hourlyTypes = [
+  'weathercode',
+  'temperature_2m',
+  'relativehumidity_2m',
+  'apparent_temperature',
+  'visibility',
+];
 
 export const fetchWeather = async (
   coords: IPosition
