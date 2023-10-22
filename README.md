@@ -7,7 +7,7 @@ A simple weather app built using Vite, React, TypeScript, and the Open-Meteo API
 - Vite
 - React
 - TypeScript
-- Ant Design
+- Tailwind
 
 ## Running Locally
 
