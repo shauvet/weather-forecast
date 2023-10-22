@@ -1,4 +1,4 @@
-import { useState, FC } from 'react';
+import { FC, useCallback } from 'react';
 import { AsyncSelect } from './AsyncSelect';
 import { GEO_API_URL } from '../api';
 
@@ -14,11 +14,7 @@ interface SearchBarProps {
 }
 
 const SearchBar: FC<SearchBarProps> = ({ onSearchChange }) => {
-  const [search, setSearch] = useState<{ value: string; label: string } | null>(
-    null
-  );
-
-  const loadOptions = async (inputValue: string) => {
+  const loadOptions = useCallback(async (inputValue: string) => {
     const response = await fetch(
       `${GEO_API_URL}/cities?minPopulation=100000&namePrefix=${inputValue}`,
       {
@@ -38,12 +34,11 @@ const SearchBar: FC<SearchBarProps> = ({ onSearchChange }) => {
       }));
     }
     return [];
-  };
+  }, []);
 
   const handleOnChange = (
     searchData: { value: string; label: string } | null
   ) => {
-    setSearch(searchData);
     onSearchChange(searchData);
   };
 
@@ -55,9 +50,7 @@ const SearchBar: FC<SearchBarProps> = ({ onSearchChange }) => {
       <div className='w-full md:w-1/2 flex justify-center md:justify-start'>
         <AsyncSelect
           placeholder='Search for city'
-          onFocus={() => setSearch(null)}
           debounceTimeout={600}
-          value={search}
           onChange={handleOnChange}
           loadOptions={loadOptions}
           className='w-full md:w-1/2 mx-auto md:mx-0 text-black text-xl'
