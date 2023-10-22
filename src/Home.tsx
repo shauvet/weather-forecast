@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState, useCallback } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import SearchBar from './components/SearchBar';
 import { WeatherComponent } from './components/WeatherComponent';
 import { IPosition } from './types';
@@ -20,9 +20,13 @@ const Home: React.FC = () => {
     }
   }, []);
 
+  const MemoSearchBar = memo(() => (
+    <SearchBar onSearchChange={handleOnSearchChange} />
+  ));
+
   return (
     <div className='flex flex-col items-center justify-center w-screen min-h-screen text-gray-700 bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 pt-40 md:pt-0'>
-      <SearchBar onSearchChange={handleOnSearchChange} />
+      <MemoSearchBar />
       <WeatherComponent position={position} />
     </div>
   );

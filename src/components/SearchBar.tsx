@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { AsyncSelect } from './AsyncSelect';
 import { GEO_API_URL } from '../api';
 
@@ -13,7 +13,7 @@ interface SearchBarProps {
   onSearchChange: (searchData: { value: string; label: string } | null) => void;
 }
 
-const SearchBar: FC<SearchBarProps> = React.memo(({ onSearchChange }) => {
+const SearchBar: FC<SearchBarProps> = ({ onSearchChange }) => {
   const loadOptions = useCallback(async (inputValue: string) => {
     const response = await fetch(
       `${GEO_API_URL}/cities?minPopulation=100000&namePrefix=${inputValue}`,
@@ -58,6 +58,6 @@ const SearchBar: FC<SearchBarProps> = React.memo(({ onSearchChange }) => {
       </div>
     </div>
   );
-});
+};
 
 export default SearchBar;
