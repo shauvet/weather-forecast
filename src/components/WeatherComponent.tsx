@@ -3,7 +3,7 @@ import { useUserLocation } from '../hooks/useUserLocation';
 import { fetchWeather } from '../services/WeatherData';
 import { WeatherIcon } from './WeatherIcon';
 import { WeatherLoading } from './WeatherLoading';
-import { IWeatherData } from '../types';
+import { IWeatherData, IPosition } from '../types';
 import WMOWWCode from '../constants/WMOWWCode';
 
 const WeekDay = [
@@ -16,15 +16,24 @@ const WeekDay = [
   'Saturday',
 ];
 
-export const WeatherComponent: React.FC = () => {
+interface IWeatherComponentProps {
+  position?: IPosition;
+}
+
+export const WeatherComponent: React.FC<IWeatherComponentProps> = ({
+  position,
+}) => {
   const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
   const userLocation = useUserLocation();
 
   useEffect(() => {
+    if (position) {
+      fetchWeather(position).then((data) => setWeatherData(data));
+    }
     if (userLocation) {
       fetchWeather(userLocation).then((data) => setWeatherData(data));
     }
-  }, [userLocation]);
+  }, [position, userLocation]);
 
   const getRoundedTemperature = (temp?: number) =>
     temp ? Math.round(temp) : 0;
@@ -120,14 +129,13 @@ export const WeatherComponent: React.FC = () => {
   }, [weatherData?.hourly]);
 
   return (
-    <div>
+    <div className=''>
       {temperature ? (
         <div className='flex flex-col md:flex-row h-full md:space-x-6 space-y-6 md:space-y-0'>
           <div className='flex flex-col bg-white p-8 rounded-xl ring-8 ring-white ring-opacity-40 flex-grow'>
             <div className='flex justify-between'>
               <div className='flex flex-col'>
                 <span className='text-6xl font-bold'>{temperature}°C</span>
-                <span className='font-semibold mt-1 text-gray-500'>Tokyo</span>
               </div>
               <div className='flex flex-col pt-2 pr-4 scale-150'>
                 {WeatherIcon(weathercode, !!isDay)}
@@ -135,17 +143,30 @@ export const WeatherComponent: React.FC = () => {
             </div>
             <div className='pt-2 justify-center items-center'>
               <p className='text-gray-500'>
-                Min: {minTemperature}° - Max: {maxTemperature}°
+                Min: {minTemperature}°C - Max: {maxTemperature}°C
               </p>
             </div>
             <div className='pt-10'>
-              <p className=' text-gray-500'>
-                feels like: {apparentTemperature} °C
-              </p>
-              <p className=' text-gray-500'>visibility: {visibility} km</p>
-              <p className=' text-gray-500'>humidity: {relativeHumidity} %</p>
-              <p className=' text-gray-500'>wind: {windSpeed} km/h</p>
-              <p className=' text-gray-500'>uvIndex: {uvIndex}</p>
+              <div className='flex justify-between text-gray-500'>
+                <span>FEELS LIKE:</span>
+                <span>{apparentTemperature} °C</span>
+              </div>
+              <div className='flex justify-between text-gray-500'>
+                <span>VISIBILITY:</span>
+                <span>{visibility} km</span>
+              </div>
+              <div className='flex justify-between text-gray-500'>
+                <span>HUMIDITY:</span>
+                <span>{relativeHumidity} %</span>
+              </div>
+              <div className='flex justify-between text-gray-500'>
+                <span>WIND:</span>
+                <span>{windSpeed} km/h</span>
+              </div>
+              <div className='flex justify-between text-gray-500'>
+                <span>UV:</span>
+                <span>{uvIndex}</span>
+              </div>
             </div>
             <div className='flex gap-4 justify-between mt-12'>
               {latestFiveHoursCodes?.map((code, index) => (

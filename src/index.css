@@ -6,32 +6,3 @@ body {
   background: linear-gradient(to bottom, #83a4d4, #b6fbff);
 }
 
-@keyframes rotateSun {
-  0% {
-    transform: rotate(0deg) translateX(150px) rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg) translateX(150px) rotate(-360deg);
-  }
-}
-
-@keyframes floatCloud {
-  0% {
-    transform: translateX(-10px);
-  }
-  50% {
-    transform: translateX(10px);
-  }
-  100% {
-    transform: translateX(-10px);
-  }
-}
-
-.sun {
-  animation: rotateSun 3s linear infinite;
-}
-
-.cloud {
-  animation: floatCloud 3s linear infinite;
-}
-
