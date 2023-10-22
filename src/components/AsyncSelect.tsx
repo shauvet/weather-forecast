@@ -60,7 +60,7 @@ export const AsyncSelect: FC<AsyncSelectProps> = ({
         onFocus={onFocus}
         placeholder={placeholder}
       />
-      {isDropdownVisible && options.length && (
+      {isDropdownVisible && !!options.length && (
         <div className='absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded'>
           {options.map((option, index) => (
             <div
