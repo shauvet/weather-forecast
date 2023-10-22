@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import { useState, FC } from 'react';
 import { AsyncSelect } from './AsyncSelect';
 import { GEO_API_URL } from '../api';
 
