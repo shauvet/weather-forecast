@@ -20,7 +20,8 @@ const SearchBar: FC<SearchBarProps> = ({ onSearchChange }) => {
       {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': process.env.RAPID_API_KEY || '',
+          'X-RapidAPI-Key':
+            '23fcf58ea6msha04babc43facb81p18bb40jsn6492402e7cc3',
           'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com',
         },
       }
